@@ -22,9 +22,10 @@ let fps = 0;
 let isWaitingForResponse = false; // Backpressure lock to prevent frame queuing lag
 
 // Connect to Backend WebSocket
+const BACKEND_WS_URL = import.meta.env.VITE_WS_URL;
+
 function connectWebSocket() {
-    ws = new WebSocket('ws://localhost:8000/ws/detect');
-    
+    ws = new WebSocket(`${BACKEND_WS_URL}/ws/detect`);
     ws.onopen = () => {
         isConnected = true;
         connectionDot.classList.add('connected');
@@ -54,6 +55,7 @@ function connectWebSocket() {
             if (idCardsCounter) idCardsCounter.textContent = data.counts.id_cards;
         }
     };
+    // Keep your existing WebSocket event handlers here.
 }
 
 // Initial connection
